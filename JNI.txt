@@ -1,0 +1,24 @@
+步骤：
+1.编写Java代码
+2.编译Java文件 javac -d . Test.java
+3.编译头文件 javah -classpath . -jni com.gigabud.jni.Test
+4.编写C语言动态库文件，把头文件考进项目中，设置“包含目录”，
+注意需要包含两个头文件：C:\Java\jdk1.6.0_10\include\jni.h 和 C:\Java\jdk1.6.0_10\include\win32\jni_md.h
+5.编写实现文件，生成动态库文件
+6.把动态库文件复制到C:\Java\jdk1.6.0_10\bin目录中（这是简单的测试做法，实际上是需要配置一个DL环境变量）
+7.静态加载
+static {
+		System.loadLibrary("JNITest");
+	}
+8.重新编译运行 
+javac -d . Test.java
+java com.gigabud.jni.Test
+
+
+加载由 libname 参数指定的系统库。将库名映射到实际系统库的方法取决于系统。
+
+LD_LIBRARY_PATH环境变量用于在程序加载运行期间查找动态链接库时指定除了系统默认路径之外的其他路径
+
+LD_LIBRARY_PATH is Linux specific and is an environment variable pointing to directories where the dynamic loader should look for shared libraries.
+
+swig 
